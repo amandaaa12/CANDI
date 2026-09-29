@@ -1,0 +1,40 @@
+#--------------------------------------------------------------------
+# ENVIRONMENT
+#--------------------------------------------------------------------
+
+
+#--------------------------------------------------------------------
+# DATABASE
+#--------------------------------------------------------------------
+
+CI_ENVIRONMENT = development
+
+database.default.hostname = localhost
+database.default.database = dinas_pendidikan
+database.default.username = root
+database.default.password =
+database.default.DBDriver = MySQLi
+database.default.port = 3306
+
+app.baseURL = 'http://localhost:8081/'
+
+#--------------------------------------------------------------------
+# ENCRYPTION
+#--------------------------------------------------------------------
+
+# encryption.key =
+
+
+#--------------------------------------------------------------------
+# SESSION
+#--------------------------------------------------------------------
+
+# session.driver = 'CodeIgniter\Session\Handlers\FileHandler'
+# session.savePath = null
+
+
+#--------------------------------------------------------------------
+# LOGGER
+#--------------------------------------------------------------------
+
+logger.threshold = 4
