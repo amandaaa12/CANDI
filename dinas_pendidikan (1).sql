@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 29 Sep 2026 pada 01.43
+-- Waktu pembuatan: 30 Sep 2026 pada 06.16
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.2.12
 
@@ -82,6 +82,52 @@ INSERT INTO `agenda_dokumentasi` (`id`, `agenda_id`, `nama_file`, `created_at`) 
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `migrations`
+--
+
+CREATE TABLE `migrations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `version` varchar(255) NOT NULL,
+  `class` varchar(255) NOT NULL,
+  `group` varchar(255) NOT NULL,
+  `namespace` varchar(255) NOT NULL,
+  `time` int(11) NOT NULL,
+  `batch` int(11) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `migrations`
+--
+
+INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`, `batch`) VALUES
+(1, '2026-09-30-000001', 'App\\Database\\Migrations\\AddPasswordResetSupport', 'default', 'App', 1790738448, 1),
+(2, '2026-09-30-000002', 'App\\Database\\Migrations\\CreatePasswordResetRequests', 'default', 'App', 1790741162, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `password_reset_requests`
+--
+
+CREATE TABLE `password_reset_requests` (
+  `id` int(11) UNSIGNED NOT NULL,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'pending',
+  `requested_at` datetime NOT NULL,
+  `resolved_by` int(11) UNSIGNED DEFAULT NULL,
+  `resolved_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `password_reset_requests`
+--
+
+INSERT INTO `password_reset_requests` (`id`, `user_id`, `status`, `requested_at`, `resolved_by`, `resolved_at`) VALUES
+(2, 8, 'pending', '2026-09-30 04:09:09', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `user`
 --
 
@@ -89,7 +135,6 @@ CREATE TABLE `user` (
   `id` int(11) UNSIGNED NOT NULL,
   `nama` varchar(100) NOT NULL,
   `username` varchar(100) NOT NULL,
-  `email` varchar(254) DEFAULT NULL,
   `password` varchar(255) NOT NULL,
   `role` varchar(50) NOT NULL DEFAULT 'Admin',
   `status` varchar(20) NOT NULL DEFAULT 'Aktif',
@@ -97,37 +142,16 @@ CREATE TABLE `user` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-CREATE TABLE `password_reset_tokens` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) UNSIGNED NOT NULL,
-  `token_hash` char(64) NOT NULL,
-  `expires_at` datetime NOT NULL,
-  `created_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `token_hash` (`token_hash`),
-  KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
-CREATE TABLE `password_reset_requests` (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) UNSIGNED NOT NULL,
-  `status` varchar(20) NOT NULL DEFAULT 'pending',
-  `requested_at` datetime NOT NULL,
-  `resolved_by` int(11) UNSIGNED DEFAULT NULL,
-  `resolved_at` datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `user_id_status` (`user_id`, `status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
 --
 -- Dumping data untuk tabel `user`
 --
 
 INSERT INTO `user` (`id`, `nama`, `username`, `password`, `role`, `status`, `created_at`, `updated_at`) VALUES
-(3, 'Revita Dwi Amanda', 'amanda', '$2y$10$uKVNpD051WK1Cy1lropxcujHviDZrESbyQaFWQpW0zujGdMUkGcZu', 'Admin', 'Aktif', '2026-09-24 05:41:45', '2026-09-24 05:41:45'),
+(3, 'Revita Dwi Amanda', 'amanda', '$2y$12$.OCJcSt4bgY.gxxkpIYKn.cJCVVu.RLKWAi1.RFzTrNhJrHYOM3S', 'Admin', 'Aktif', '2026-09-24 05:41:45', '2026-09-24 05:41:45'),
 (5, 'finaya rokayah', 'rokayah', '$2y$10$2wTNKE..zIM75vBs2orE1uNBZZaB3r.74JngXbmPeqbEIHZ4W.gUe', 'Admin', 'Aktif', '2026-09-24 06:00:09', '2026-09-24 06:00:09'),
 (6, 'royco', 'vvv', '$2y$10$Ue/j7VIDn1li8JyEAQTeXuKSicV27jUxlSv0eUhmWhsJDltaGV2Xq', 'Admin', 'Aktif', '2026-09-24 06:15:44', '2026-09-24 06:15:44'),
-(7, 'ggg', 'ggg', '$2y$10$I8B7updjONTi.srLRzQoj.hD8NK2dOxKakegY/ebV8knMNyaQbRX6', 'Karyawan Dindik', 'Aktif', '2026-09-24 06:24:09', '2026-09-24 06:24:09');
+(7, 'ggg', 'ggg', '$2y$10$I8B7updjONTi.srLRzQoj.hD8NK2dOxKakegY/ebV8knMNyaQbRX6', 'Karyawan Dindik', 'Aktif', '2026-09-24 06:24:09', '2026-09-24 06:24:09'),
+(8, 'RV', 'rv', '$2y$10$eOqNAinl2qk.VNaW7kp5yOir8Wyts5LdfcmWTtfgJ5F9eAjhj6xsq', 'Admin', 'Aktif', '2026-09-30 10:06:59', '2026-09-30 04:27:02');
 
 --
 -- Indexes for dumped tables
@@ -147,12 +171,24 @@ ALTER TABLE `agenda_dokumentasi`
   ADD KEY `idx_agenda_id` (`agenda_id`);
 
 --
+-- Indeks untuk tabel `migrations`
+--
+ALTER TABLE `migrations`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `password_reset_requests`
+--
+ALTER TABLE `password_reset_requests`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id_status` (`user_id`,`status`);
+
+--
 -- Indeks untuk tabel `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `user_email_unique` (`email`);
+  ADD UNIQUE KEY `username` (`username`);
 
 --
 -- AUTO_INCREMENT untuk tabel yang dibuang
@@ -171,10 +207,22 @@ ALTER TABLE `agenda_dokumentasi`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT untuk tabel `migrations`
+--
+ALTER TABLE `migrations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT untuk tabel `password_reset_requests`
+--
+ALTER TABLE `password_reset_requests`
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
