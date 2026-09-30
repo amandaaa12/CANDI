@@ -531,7 +531,7 @@
             <li>
 
                 <a
-                    href="/admin"
+                    href="<?= site_url('admin') ?>"
                     class="nav-link <?= uri_string() == 'admin' ? 'active' : '' ?>"
                 >
 
@@ -551,7 +551,7 @@
             <li>
 
                 <a
-                    href="/admin/agenda"
+                    href="<?= site_url('admin/agenda') ?>"
                     class="nav-link <?= strpos(uri_string(), 'admin/agenda') === 0 ? 'active' : '' ?>"
                 >
 
@@ -571,7 +571,7 @@
             <li>
 
                 <a
-                    href="/admin/laporan"
+                    href="<?= site_url('admin/laporan') ?>"
                     class="nav-link <?= strpos(uri_string(), 'admin/laporan') === 0 ? 'active' : '' ?>"
                 >
 
@@ -591,7 +591,7 @@
             <li class="logout-item">
 
                 <a
-                    href="/logout"
+                    href="<?= site_url('logout') ?>"
                     class="nav-link"
                 >
 

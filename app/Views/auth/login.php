@@ -755,7 +755,7 @@
                 ====================================== -->
 
                 <form
-                    action="/login/masuk"
+                    action="<?= site_url('login/masuk') ?>"
                     method="post">
 
                     <?= csrf_field() ?>
