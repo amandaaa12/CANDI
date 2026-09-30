@@ -16,7 +16,8 @@ database.default.password =
 database.default.DBDriver = MySQLi
 database.default.port = 3306
 
-app.baseURL = 'http://localhost:8081/'
+app.baseURL = 'http://localhost/dev/CANDI/'
+app.indexPage = ''
 
 #--------------------------------------------------------------------
 # ENCRYPTION

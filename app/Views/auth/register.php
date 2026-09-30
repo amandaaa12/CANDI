@@ -321,7 +321,7 @@
                     <div class="logo-box mb-4">
 
                         <img
-                            src="/assets/CANDI.png"
+                            src="<?= base_url('assets/CANDI.png') ?>"
                             alt="Logo CANDI"
                             class="brand-logo-img">
 

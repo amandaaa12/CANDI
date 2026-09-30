@@ -12,7 +12,7 @@ $routes->post('/register/simpan', 'Auth::simpanRegister');
 
 $routes->get('/logout', 'Auth::logout');
 
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Auth::login');
 $routes->get('/admin', 'Admin::index');
 
 
