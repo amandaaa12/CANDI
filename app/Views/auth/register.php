@@ -478,36 +478,8 @@
                                 type="text"
                                 name="username"
                                 class="form-control form-control-custom"
-                                placeholder="Masukkan username/email"
+                                placeholder="Masukkan username"
                                 value="<?= old('username') ?>"
-                                required>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- EMAIL PEMULIHAN -->
-
-                    <div class="mb-4">
-
-                        <label class="form-label small fw-semibold text-secondary">
-                            Email Pemulihan
-                        </label>
-
-                        <div class="input-group">
-
-                            <span class="input-group-text input-group-text-custom">
-                                <i class="bi bi-envelope-at"></i>
-                            </span>
-
-                            <input
-                                type="email"
-                                name="email"
-                                class="form-control form-control-custom"
-                                placeholder="Email aktif untuk pemulihan akun"
-                                value="<?= esc(old('email')) ?>"
-                                autocomplete="email"
                                 required>
 
                         </div>

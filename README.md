@@ -30,11 +30,9 @@ and any database settings.
 
 ### Password reset
 
-Password reset links are sent to the email address saved on each account. Configure
-the `email.*` SMTP settings in `.env` before using the reset form. Existing accounts
-have no email address by default; an administrator must set each account's `email`
-field before that account can request a reset link. New registrations require an
-email address.
+Password reset can be started with only an account username. This does not verify
+account ownership, so use this flow only on a trusted local installation. For a
+public deployment, require a verified recovery method such as email or OTP.
 
 ## Important Change with index.php
 

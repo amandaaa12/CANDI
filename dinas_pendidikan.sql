@@ -108,6 +108,17 @@ CREATE TABLE `password_reset_tokens` (
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+CREATE TABLE `password_reset_requests` (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) UNSIGNED NOT NULL,
+  `status` varchar(20) NOT NULL DEFAULT 'pending',
+  `requested_at` datetime NOT NULL,
+  `resolved_by` int(11) UNSIGNED DEFAULT NULL,
+  `resolved_at` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id_status` (`user_id`, `status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
 --
 -- Dumping data untuk tabel `user`
 --

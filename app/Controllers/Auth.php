@@ -15,7 +15,7 @@ class Auth extends BaseController
 
 
     // =====================================================
-    // HALAMAN LOGIN
+    // LOGIN
     // =====================================================
 
     public function login()
@@ -25,256 +25,24 @@ class Auth extends BaseController
 
 
     // =====================================================
-    // HALAMAN LUPA PASSWORD
-    // =====================================================
-
-    public function forgotPassword()
-    {
-        return view('auth/password_reset', [
-            'mode' => 'request'
-        ]);
-    }
-
-
-    // =====================================================
-    // PROSES LUPA PASSWORD
-    // =====================================================
-
-    public function sendPasswordReset()
-    {
-        $username = trim((string) $this->request->getPost('username'));
-        $emailAddress = strtolower(
-            trim((string) $this->request->getPost('email'))
-        );
-
-        // Validasi input
-        if (
-            $username === '' ||
-            filter_var($emailAddress, FILTER_VALIDATE_EMAIL) === false
-        ) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with(
-                    'error',
-                    'Masukkan username dan alamat email yang valid.'
-                );
-        }
-
-        // Cari username + email
-        $user = $this->userModel
-            ->where('username', $username)
-            ->where('email', $emailAddress)
-            ->first();
-
-        // Data tidak cocok
-        if ($user === null) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with(
-                    'error',
-                    'Username atau email tidak sesuai dengan data akun.'
-                );
-        }
-
-        // =================================================
-        // BUAT TOKEN RESET
-        // =================================================
-
-        $db = db_connect();
-
-        $token = bin2hex(random_bytes(32));
-
-        $tokenHash = hash('sha256', $token);
-
-        $now = date('Y-m-d H:i:s');
-
-        $expiresAt = date(
-            'Y-m-d H:i:s',
-            time() + 3600
-        );
-
-        // Hapus token lama milik user
-        $db->table('password_reset_tokens')
-            ->where('user_id', $user['id'])
-            ->delete();
-
-        // Simpan token baru
-        $db->table('password_reset_tokens')
-            ->insert([
-                'user_id'   => $user['id'],
-                'token_hash' => $tokenHash,
-                'expires_at' => $expiresAt,
-                'created_at' => $now
-            ]);
-
-        // =================================================
-        // UNTUK LOCALHOST:
-        // LANGSUNG ARAHKAN KE HALAMAN RESET PASSWORD
-        // =================================================
-
-        return redirect()->to(
-            site_url('password/reset/' . $token)
-        );
-    }
-
-
-    // =====================================================
-    // HALAMAN RESET PASSWORD
-    // =====================================================
-
-    public function showPasswordReset(string $token)
-    {
-        $reset = $this->findValidPasswordReset($token);
-
-        // Token tidak valid
-        if ($reset === null) {
-            return view('auth/password_reset', [
-                'mode' => 'invalid'
-            ]);
-        }
-
-        // Jangan kirim token melalui referrer
-        $this->response->setHeader(
-            'Referrer-Policy',
-            'no-referrer'
-        );
-
-        return view('auth/password_reset', [
-            'mode'  => 'reset',
-            'token' => $token
-        ]);
-    }
-
-
-    // =====================================================
-    // PROSES UPDATE PASSWORD
-    // =====================================================
-
-    public function updatePassword()
-    {
-        $token = (string) $this->request->getPost('token');
-
-        $password = (string) $this->request->getPost('password');
-
-        $passwordConfirm = (string) $this->request->getPost(
-            'password_confirm'
-        );
-
-        // Validasi password
-        if (
-            strlen($password) < 8 ||
-            $password !== $passwordConfirm
-        ) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with(
-                    'error',
-                    'Password minimal 8 karakter dan kedua password harus sama.'
-                );
-        }
-
-        // Cari token
-        $reset = $this->findValidPasswordReset($token);
-
-        if ($reset === null) {
-            return redirect()
-                ->to('/password/forgot')
-                ->with(
-                    'error',
-                    'Tautan reset tidak valid atau sudah kedaluwarsa. Silakan minta reset password lagi.'
-                );
-        }
-
-        // =================================================
-        // UPDATE PASSWORD
-        // =================================================
-
-        $db = db_connect();
-
-        $db->transStart();
-
-        $db->table('user')
-            ->where('id', $reset['user_id'])
-            ->update([
-                'password' => password_hash(
-                    $password,
-                    PASSWORD_DEFAULT
-                )
-            ]);
-
-        // Hapus token setelah digunakan
-        $db->table('password_reset_tokens')
-            ->where('user_id', $reset['user_id'])
-            ->delete();
-
-        $db->transComplete();
-
-        // Cek transaksi
-        if (!$db->transStatus()) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with(
-                    'error',
-                    'Password belum berhasil diperbarui. Silakan coba lagi.'
-                );
-        }
-
-        // Berhasil
-        return redirect()
-            ->to('/login')
-            ->with(
-                'success',
-                'Password berhasil diperbarui. Silakan masuk dengan password baru.'
-            );
-    }
-
-
-    // =====================================================
-    // CEK TOKEN RESET
-    // =====================================================
-
-    private function findValidPasswordReset(string $token): ?array
-    {
-        // Token harus 64 karakter hexadecimal
-        if (!preg_match('/\A[a-f0-9]{64}\z/i', $token)) {
-            return null;
-        }
-
-        return db_connect()
-            ->table('password_reset_tokens')
-            ->where(
-                'token_hash',
-                hash('sha256', $token)
-            )
-            ->where(
-                'expires_at >',
-                date('Y-m-d H:i:s')
-            )
-            ->get()
-            ->getRowArray();
-    }
-
-
-    // =====================================================
     // PROSES LOGIN
     // =====================================================
 
     public function masuk()
     {
-        $username = $this->request->getPost('username');
+        $username = trim(
+            (string) $this->request->getPost('username')
+        );
 
-        $password = $this->request->getPost('password');
+        $password = (string) $this->request->getPost('password');
+
 
         // Cari username
         $user = $this->userModel
             ->where('username', $username)
             ->first();
 
-        // Username tidak ditemukan
+
         if (!$user) {
             return redirect()
                 ->back()
@@ -284,6 +52,7 @@ class Auth extends BaseController
                     'Akun belum terdaftar. Silakan daftar terlebih dahulu.'
                 );
         }
+
 
         // Cek password
         if (!password_verify(
@@ -299,7 +68,8 @@ class Auth extends BaseController
                 );
         }
 
-        // Cek status
+
+        // Cek status akun
         if ($user['status'] !== 'Aktif') {
             return redirect()
                 ->back()
@@ -310,10 +80,8 @@ class Auth extends BaseController
                 );
         }
 
-        // =================================================
-        // SIMPAN SESSION
-        // =================================================
 
+        // Session login
         session()->set([
             'isLoggedIn' => true,
             'user_id'    => $user['id'],
@@ -322,23 +90,24 @@ class Auth extends BaseController
             'role'       => $user['role']
         ]);
 
-        // =================================================
-        // REDIRECT BERDASARKAN ROLE
-        // =================================================
 
+        // Redirect sesuai role
         if ($user['role'] === 'Admin') {
             return redirect()->to('/admin');
         }
+
 
         if ($user['role'] === 'Karyawan Dindik') {
             return redirect()->to('/pegawai');
         }
 
+
         if ($user['role'] === 'Guru Sekolah') {
             return redirect()->to('/pegawai');
         }
 
-        // Role tidak dikenali
+
+        // Jika role tidak dikenali
         session()->destroy();
 
         return redirect()
@@ -351,7 +120,232 @@ class Auth extends BaseController
 
 
     // =====================================================
-    // HALAMAN REGISTER
+    // LUPA PASSWORD
+    // =====================================================
+
+    public function forgotPassword()
+    {
+        return view('auth/password_reset', [
+            'mode' => 'request'
+        ]);
+    }
+
+
+    // =====================================================
+    // CEK USERNAME UNTUK RESET PASSWORD
+    // =====================================================
+
+    public function sendPasswordReset()
+    {
+        $username = trim(
+            (string) $this->request->getPost('username')
+        );
+
+
+        // Username kosong
+        if ($username === '') {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Silakan masukkan username.'
+                );
+        }
+
+
+        // Cari user berdasarkan username
+        $user = $this->userModel
+            ->where('username', $username)
+            ->first();
+
+
+        // Username tidak ditemukan
+        if (!$user) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Username tidak ditemukan.'
+                );
+        }
+
+
+        // Cek status
+        if ($user['status'] !== 'Aktif') {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Akun kamu sedang tidak aktif.'
+                );
+        }
+
+
+        // Simpan ID user sementara
+        session()->set([
+            'reset_user_id' => $user['id']
+        ]);
+
+
+        // Masuk ke halaman password baru
+        return redirect()->to(
+            base_url('password/reset')
+        );
+    }
+
+
+    // =====================================================
+    // HALAMAN PASSWORD BARU
+    // =====================================================
+
+    public function showPasswordReset()
+    {
+        $userId = session()->get('reset_user_id');
+
+
+        // Belum memasukkan username
+        if (!$userId) {
+            return redirect()
+                ->to(base_url('password/forgot'))
+                ->with(
+                    'error',
+                    'Silakan masukkan username terlebih dahulu.'
+                );
+        }
+
+
+        // Cari user
+        $user = $this->userModel->find($userId);
+
+
+        // User tidak ditemukan
+        if (!$user) {
+
+            session()->remove('reset_user_id');
+
+            return redirect()
+                ->to(base_url('password/forgot'))
+                ->with(
+                    'error',
+                    'Data akun tidak ditemukan.'
+                );
+        }
+
+
+        return view('auth/password_reset', [
+            'mode'     => 'reset',
+            'username' => $user['username']
+        ]);
+    }
+
+
+    // =====================================================
+    // SIMPAN PASSWORD BARU
+    // =====================================================
+
+    public function updatePassword()
+    {
+        $userId = session()->get('reset_user_id');
+
+
+        // Tidak ada sesi reset
+        if (!$userId) {
+            return redirect()
+                ->to(base_url('password/forgot'))
+                ->with(
+                    'error',
+                    'Sesi reset password sudah berakhir. Silakan ulangi.'
+                );
+        }
+
+
+        $password = (string) $this->request->getPost(
+            'password'
+        );
+
+        $passwordConfirm = (string) $this->request->getPost(
+            'password_confirm'
+        );
+
+
+        // Password kosong
+        if ($password === '') {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Password baru wajib diisi.'
+                );
+        }
+
+
+        // Minimal 8 karakter
+        if (strlen($password) < 8) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Password minimal 8 karakter.'
+                );
+        }
+
+
+        // Konfirmasi password
+        if ($password !== $passwordConfirm) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Konfirmasi password tidak sama.'
+                );
+        }
+
+
+        // Update password
+        $berhasil = $this->userModel->update(
+            $userId,
+            [
+                'password' => password_hash(
+                    $password,
+                    PASSWORD_DEFAULT
+                )
+            ]
+        );
+
+
+        if (!$berhasil) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Password gagal diperbarui.'
+                );
+        }
+
+
+        // Hapus sesi reset
+        session()->remove('reset_user_id');
+
+
+        // Kembali ke login
+        return redirect()
+            ->to(base_url('login'))
+            ->with(
+                'success',
+                'Password berhasil diubah. Silakan login dengan password baru.'
+            );
+    }
+
+
+    // =====================================================
+    // REGISTER
     // =====================================================
 
     public function register()
@@ -361,36 +355,36 @@ class Auth extends BaseController
 
 
     // =====================================================
-    // PROSES REGISTER
+    // SIMPAN REGISTER
     // =====================================================
 
     public function simpanRegister()
     {
-        $nama = $this->request->getPost('nama');
-
-        $username = $this->request->getPost('username');
-
-        $emailAddress = strtolower(
-            trim((string) $this->request->getPost('email'))
+        $nama = trim(
+            (string) $this->request->getPost('nama')
         );
 
-        $password = $this->request->getPost('password');
+        $username = trim(
+            (string) $this->request->getPost('username')
+        );
 
-        $passwordConfirm = $this->request->getPost(
+        $password = (string) $this->request->getPost(
+            'password'
+        );
+
+        $passwordConfirm = (string) $this->request->getPost(
             'password_confirm'
         );
 
         $role = $this->request->getPost('role');
 
 
-        // =================================================
-        // ROLE YANG BOLEH MENDAFTAR
-        // =================================================
-
+        // Role yang diperbolehkan
         $allowedRoles = [
             'Karyawan Dindik',
             'Guru Sekolah'
         ];
+
 
         if (!in_array(
             $role,
@@ -407,30 +401,7 @@ class Auth extends BaseController
         }
 
 
-        // =================================================
-        // VALIDASI EMAIL
-        // =================================================
-
-        if (
-            filter_var(
-                $emailAddress,
-                FILTER_VALIDATE_EMAIL
-            ) === false
-        ) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with(
-                    'error',
-                    'Masukkan alamat email yang valid.'
-                );
-        }
-
-
-        // =================================================
-        // VALIDASI PASSWORD
-        // =================================================
-
+        // Password harus sama
         if ($password !== $passwordConfirm) {
             return redirect()
                 ->back()
@@ -442,13 +413,23 @@ class Auth extends BaseController
         }
 
 
-        // =================================================
-        // CEK USERNAME
-        // =================================================
+        // Minimal password
+        if (strlen($password) < 8) {
+            return redirect()
+                ->back()
+                ->withInput()
+                ->with(
+                    'error',
+                    'Password minimal 8 karakter.'
+                );
+        }
 
+
+        // Cek username
         $cekUsername = $this->userModel
             ->where('username', $username)
             ->first();
+
 
         if ($cekUsername) {
             return redirect()
@@ -461,33 +442,10 @@ class Auth extends BaseController
         }
 
 
-        // =================================================
-        // CEK EMAIL
-        // =================================================
-
-        $existingEmail = $this->userModel
-            ->where('email', $emailAddress)
-            ->first();
-
-        if ($existingEmail) {
-            return redirect()
-                ->back()
-                ->withInput()
-                ->with(
-                    'error',
-                    'Alamat email sudah digunakan.'
-                );
-        }
-
-
-        // =================================================
-        // SIMPAN USER
-        // =================================================
-
+        // Simpan user
         $this->userModel->insert([
             'nama'     => $nama,
             'username' => $username,
-            'email'    => $emailAddress,
             'password' => password_hash(
                 $password,
                 PASSWORD_DEFAULT
@@ -497,17 +455,11 @@ class Auth extends BaseController
         ]);
 
 
-        // =================================================
-        // KEMBALI KE LOGIN
-        // =================================================
-
         return redirect()
-            ->to('/login')
+            ->to(base_url('login'))
             ->with(
                 'success',
-                'Pendaftaran berhasil sebagai ' .
-                $role .
-                '. Silakan masuk menggunakan akun kamu.'
+                'Pendaftaran berhasil. Silakan login menggunakan akun kamu.'
             );
     }
 
@@ -521,7 +473,7 @@ class Auth extends BaseController
         session()->destroy();
 
         return redirect()
-            ->to('/login')
+            ->to(base_url('login'))
             ->with(
                 'success',
                 'Kamu berhasil keluar dari sistem.'

@@ -8,7 +8,7 @@ $routes->get('/login', 'Auth::login');
 $routes->post('/login/masuk', 'Auth::masuk');
 $routes->get('/password/forgot', 'Auth::forgotPassword');
 $routes->post('/password/forgot', 'Auth::sendPasswordReset');
-$routes->get('/password/reset/(:segment)', 'Auth::showPasswordReset/$1');
+$routes->get('/password/reset', 'Auth::showPasswordReset');
 $routes->post('/password/reset', 'Auth::updatePassword');
 
 $routes->get('/register', 'Auth::register');
@@ -18,6 +18,8 @@ $routes->get('/logout', 'Auth::logout');
 
 $routes->get('/', 'Auth::login');
 $routes->get('/admin', 'Admin::index');
+$routes->get('/admin/akun/reset-password', 'AdminAccount::index');
+$routes->post('/admin/akun/reset-password', 'AdminAccount::updatePassword');
 
 
 // =========================

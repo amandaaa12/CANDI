@@ -5,24 +5,36 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Login - CANDI</title>
 
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet">
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
 
-    <!-- Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet">
+    <!-- Bootstrap -->
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
 
 
     <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-        rel="stylesheet">
+
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
 
 
     <style>
@@ -32,6 +44,10 @@
             box-sizing: border-box;
         }
 
+
+        /* ================================
+           BODY
+        ================================= */
 
         body {
 
@@ -49,9 +65,9 @@
         }
 
 
-        /* =====================================
-           CONTAINER UTAMA
-        ====================================== */
+        /* ================================
+           LOGIN CONTAINER
+        ================================= */
 
         .login-card-container {
 
@@ -65,13 +81,15 @@
 
             overflow: hidden;
 
-            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+            box-shadow:
+                0 20px 60px
+                rgba(15, 23, 42, 0.12);
         }
 
 
-        /* =====================================
+        /* ================================
            PANEL KIRI
-        ====================================== */
+        ================================= */
 
         .brand-section {
 
@@ -110,7 +128,8 @@
 
             height: 220px;
 
-            background: rgba(59, 130, 246, 0.15);
+            background:
+                rgba(59, 130, 246, 0.15);
 
             border-radius: 50%;
 
@@ -138,9 +157,9 @@
         }
 
 
-        /* =====================================
-           LOGO CANDI
-        ====================================== */
+        /* ================================
+           LOGO
+        ================================= */
 
         .logo-box {
 
@@ -172,9 +191,9 @@
         }
 
 
-        /* =====================================
-           PANEL KANAN
-        ====================================== */
+        /* ================================
+           PANEL FORM
+        ================================= */
 
         .form-section {
 
@@ -226,9 +245,9 @@
         }
 
 
-        /* =====================================
+        /* ================================
            TOGGLE PASSWORD
-        ====================================== */
+        ================================= */
 
         .btn-toggle-password {
 
@@ -246,6 +265,8 @@
 
             padding-right: 0.5rem;
 
+            padding-left: 0.75rem;
+
             transition: color 0.3s ease;
         }
 
@@ -256,11 +277,11 @@
         }
 
 
-        .form-control-custom:focus ~ .input-group-text-custom,
+        .input-group:focus-within
+        .input-group-text-custom,
 
-        .input-group:focus-within .input-group-text-custom,
-
-        .input-group:focus-within .btn-toggle-password {
+        .input-group:focus-within
+        .btn-toggle-password {
 
             border-color: #2563eb;
 
@@ -268,9 +289,9 @@
         }
 
 
-        /* =====================================
+        /* ================================
            TOMBOL LOGIN
-        ====================================== */
+        ================================= */
 
         .btn-navy {
 
@@ -292,7 +313,9 @@
 
             transition: all 0.3s ease;
 
-            box-shadow: 0 8px 20px rgba(30, 58, 138, 0.25);
+            box-shadow:
+                0 8px 20px
+                rgba(30, 58, 138, 0.25);
         }
 
 
@@ -304,13 +327,21 @@
 
             transform: translateY(-2px);
 
-            box-shadow: 0 12px 25px rgba(15, 23, 42, 0.35);
+            box-shadow:
+                0 12px 25px
+                rgba(15, 23, 42, 0.35);
         }
 
 
-        /* =====================================
-           CHECKBOX
-        ====================================== */
+        /* ================================
+           CHECKBOX INGAT SAYA
+        ================================= */
+
+        .form-check-input {
+
+            cursor: pointer;
+        }
+
 
         .form-check-input:checked {
 
@@ -320,9 +351,37 @@
         }
 
 
-        /* =====================================
-           POPUP NOTIFIKASI
-        ====================================== */
+        .form-check-label {
+
+            cursor: pointer;
+        }
+
+
+        /* ================================
+           LINK
+        ================================= */
+
+        .link-primary-custom {
+
+            color: #2563eb;
+
+            text-decoration: none;
+
+            transition: 0.2s ease;
+        }
+
+
+        .link-primary-custom:hover {
+
+            color: #1d4ed8;
+
+            text-decoration: underline;
+        }
+
+
+        /* ================================
+           POPUP
+        ================================= */
 
         .popup-notification {
 
@@ -344,7 +403,9 @@
 
             background: #ffffff;
 
-            box-shadow: 0 10px 35px rgba(15, 23, 42, 0.18);
+            box-shadow:
+                0 10px 35px
+                rgba(15, 23, 42, 0.18);
 
             display: flex;
 
@@ -352,19 +413,22 @@
 
             gap: 12px;
 
-            animation: popupMasuk 0.4s ease;
+            animation:
+                popupMasuk 0.4s ease;
         }
 
 
         .popup-success {
 
-            border-left: 5px solid #16a34a;
+            border-left:
+                5px solid #16a34a;
         }
 
 
         .popup-error {
 
-            border-left: 5px solid #dc2626;
+            border-left:
+                5px solid #dc2626;
         }
 
 
@@ -454,20 +518,26 @@
         }
 
 
+        /* ================================
+           ANIMASI POPUP
+        ================================= */
+
         @keyframes popupMasuk {
 
             from {
 
                 opacity: 0;
 
-                transform: translateX(30px);
+                transform:
+                    translateX(30px);
             }
 
             to {
 
                 opacity: 1;
 
-                transform: translateX(0);
+                transform:
+                    translateX(0);
             }
         }
 
@@ -478,27 +548,30 @@
 
                 opacity: 1;
 
-                transform: translateX(0);
+                transform:
+                    translateX(0);
             }
 
             to {
 
                 opacity: 0;
 
-                transform: translateX(30px);
+                transform:
+                    translateX(30px);
             }
         }
 
 
         .popup-hide {
 
-            animation: popupKeluar 0.4s ease forwards;
+            animation:
+                popupKeluar 0.4s ease forwards;
         }
 
 
-        /* =====================================
+        /* ================================
            RESPONSIVE
-        ====================================== */
+        ================================= */
 
         @media (max-width: 991px) {
 
@@ -506,7 +579,6 @@
 
                 padding: 2.5rem 2rem;
             }
-
         }
 
 
@@ -542,7 +614,6 @@
 
                 max-width: none;
             }
-
         }
 
     </style>
@@ -553,15 +624,16 @@
 <body>
 
 
-    <!-- =====================================
-         POPUP PENDAFTARAN BERHASIL
-    ====================================== -->
+    <!-- =========================================
+         POPUP BERHASIL
+    ========================================== -->
 
     <?php if (session()->getFlashdata('success')): ?>
 
         <div
             id="popupSuccess"
-            class="popup-notification popup-success">
+            class="popup-notification popup-success"
+        >
 
             <div class="popup-icon">
 
@@ -581,7 +653,9 @@
 
                 <p class="popup-message">
 
-                    <?= esc(session()->getFlashdata('success')) ?>
+                    <?= esc(
+                        session()->getFlashdata('success')
+                    ) ?>
 
                 </p>
 
@@ -591,7 +665,8 @@
             <button
                 type="button"
                 class="popup-close"
-                onclick="tutupPopup('popupSuccess')">
+                onclick="tutupPopup('popupSuccess')"
+            >
 
                 <i class="bi bi-x"></i>
 
@@ -602,15 +677,16 @@
     <?php endif; ?>
 
 
-    <!-- =====================================
+    <!-- =========================================
          POPUP ERROR
-    ====================================== -->
+    ========================================== -->
 
     <?php if (session()->getFlashdata('error')): ?>
 
         <div
             id="popupError"
-            class="popup-notification popup-error">
+            class="popup-notification popup-error"
+        >
 
             <div class="popup-icon">
 
@@ -623,14 +699,16 @@
 
                 <div class="popup-title">
 
-                    Pendaftaran Gagal
+                    Login Gagal
 
                 </div>
 
 
                 <p class="popup-message">
 
-                    <?= esc(session()->getFlashdata('error')) ?>
+                    <?= esc(
+                        session()->getFlashdata('error')
+                    ) ?>
 
                 </p>
 
@@ -640,7 +718,8 @@
             <button
                 type="button"
                 class="popup-close"
-                onclick="tutupPopup('popupError')">
+                onclick="tutupPopup('popupError')"
+            >
 
                 <i class="bi bi-x"></i>
 
@@ -651,53 +730,62 @@
     <?php endif; ?>
 
 
-    <!-- =====================================
+    <!-- =========================================
          CONTAINER LOGIN
-    ====================================== -->
+    ========================================== -->
 
     <div class="login-card-container">
 
         <div class="row g-0">
 
 
-            <!-- =====================================
+            <!-- =========================================
                  PANEL KIRI
-            ====================================== -->
+            ========================================== -->
 
-            <div class="col-lg-5 brand-section d-none d-lg-flex">
+            <div
+                class="col-lg-5 brand-section d-none d-lg-flex"
+            >
 
                 <div class="brand-content">
 
 
-                    <!-- LOGO CANDI -->
+                    <!-- LOGO -->
 
                     <div class="logo-box">
 
                         <img
                             src="<?= base_url('assets/CANDI.png') ?>"
                             alt="Logo CANDI"
-                            class="brand-logo-img">
+                            class="brand-logo-img"
+                        >
 
                     </div>
 
 
-                    <!-- NAMA APLIKASI -->
+                    <!-- NAMA -->
 
-                    <h2 class="fw-bold fs-2 mb-2 text-white">
+                    <h2
+                        class="fw-bold fs-2 mb-2 text-white"
+                    >
 
                         CANDI
 
                     </h2>
 
 
-                    <p class="text-white fs-6 fw-semibold mb-1">
+                    <p
+                        class="text-white fs-6 fw-semibold mb-1"
+                    >
 
                         Catatan Agenda Dan Dokumentasi
 
                     </p>
 
 
-                    <p class="text-white small fw-bold tracking-wide mt-1">
+                    <p
+                        class="text-white small fw-bold tracking-wide mt-1"
+                    >
 
                         DINAS PENDIDIKAN KOTA KEDIRI
 
@@ -708,9 +796,13 @@
 
                 <!-- FOOTER -->
 
-                <div class="w-100 pt-3 border-top border-secondary border-opacity-25">
+                <div
+                    class="w-100 pt-3 border-top border-secondary border-opacity-25"
+                >
 
-                    <p class="small text-white-50 mb-0">
+                    <p
+                        class="small text-white-50 mb-0"
+                    >
 
                         &copy; 2026 CANDI System.
 
@@ -721,11 +813,13 @@
             </div>
 
 
-            <!-- =====================================
+            <!-- =========================================
                  PANEL KANAN
-            ====================================== -->
+            ========================================== -->
 
-            <div class="col-lg-7 form-section bg-white">
+            <div
+                class="col-lg-7 form-section bg-white"
+            >
 
 
                 <!-- JUDUL -->
@@ -734,7 +828,8 @@
 
                     <h4
                         class="fw-bold mb-1"
-                        style="color: #0f172a;">
+                        style="color: #0f172a;"
+                    >
 
                         Selamat Datang!
 
@@ -743,41 +838,47 @@
 
                     <p class="text-muted small">
 
-                        Silakan masukkan akun kamu untuk melanjutkan.
+                        Silakan masukkan akun kamu
+                        untuk melanjutkan.
 
                     </p>
 
                 </div>
 
 
-                <!-- =====================================
+                <!-- =========================================
                      FORM LOGIN
-                ====================================== -->
+                ========================================== -->
 
                 <form
                     action="<?= site_url('login/masuk') ?>"
-                    method="post">
+                    method="post"
+                    id="loginForm"
+                >
 
                     <?= csrf_field() ?>
 
 
-                    <!-- USERNAME / EMAIL -->
+                    <!-- USERNAME -->
 
                     <div class="mb-4">
 
-                        <label class="form-label small fw-semibold text-secondary">
+                        <label
+                            class="form-label small fw-semibold text-secondary"
+                        >
 
-                            Username atau Email
+                            Username
 
                         </label>
 
 
                         <div class="input-group">
 
+                            <span
+                                class="input-group-text input-group-text-custom"
+                            >
 
-                            <span class="input-group-text input-group-text-custom">
-
-                                <i class="bi bi-envelope"></i>
+                                <i class="bi bi-person"></i>
 
                             </span>
 
@@ -785,10 +886,16 @@
                             <input
                                 type="text"
                                 name="username"
+                                id="username"
                                 class="form-control form-control-custom"
-                                placeholder="Masukkan username/email"
+                                placeholder="Masukkan username"
+                                value="<?= esc(
+                                    old('username')
+                                ) ?>"
+                                autocomplete="username"
                                 required
-                                autofocus>
+                                autofocus
+                            >
 
                         </div>
 
@@ -799,7 +906,9 @@
 
                     <div class="mb-4">
 
-                        <label class="form-label small fw-semibold text-secondary">
+                        <label
+                            class="form-label small fw-semibold text-secondary"
+                        >
 
                             Password
 
@@ -808,8 +917,9 @@
 
                         <div class="input-group">
 
-
-                            <span class="input-group-text input-group-text-custom">
+                            <span
+                                class="input-group-text input-group-text-custom"
+                            >
 
                                 <i class="bi bi-lock"></i>
 
@@ -822,20 +932,24 @@
                                 id="loginPassword"
                                 class="form-control form-control-custom"
                                 placeholder="Masukkan password"
-                                required>
+                                autocomplete="current-password"
+                                required
+                            >
 
+
+                            <!-- IKON MATA -->
 
                             <button
                                 type="button"
                                 class="btn-toggle-password"
-                                onclick="togglePassword()">
-
+                                onclick="togglePassword()"
+                                aria-label="Tampilkan password"
+                            >
 
                                 <i
                                     class="bi bi-eye-slash"
-                                    id="eyeIcon">
-                                </i>
-
+                                    id="eyeIcon"
+                                ></i>
 
                             </button>
 
@@ -844,24 +958,31 @@
                     </div>
 
 
-                    <!-- OPTIONS -->
+                    <!-- =========================================
+                         INGAT SAYA + LUPA PASSWORD
+                    ========================================== -->
 
                     <div
-                        class="d-flex justify-content-between align-items-center mb-4 pb-2">
+                        class="d-flex justify-content-between align-items-center mb-4 pb-2"
+                    >
 
+
+                        <!-- INGAT SAYA -->
 
                         <div class="form-check">
-
 
                             <input
                                 class="form-check-input"
                                 type="checkbox"
-                                id="remember">
+                                id="remember"
+                                name="remember"
+                            >
 
 
                             <label
-                                class="form-check-label small text-secondary"
-                                for="remember">
+                                class="form-check-label small text-muted"
+                                for="remember"
+                            >
 
                                 Ingat saya
 
@@ -869,27 +990,37 @@
 
                         </div>
 
+
+                        <!-- LUPA PASSWORD -->
+
                         <a
                             href="<?= site_url('password/forgot') ?>"
-                            class="small text-decoration-none"
-                            style="color: #2563eb;">
+                            class="small link-primary-custom"
+                        >
+
                             Lupa password?
+
                         </a>
 
                     </div>
 
 
-                    <!-- TOMBOL LOGIN -->
+                    <!-- =========================================
+                         TOMBOL LOGIN
+                    ========================================== -->
 
                     <div class="d-grid mb-3">
 
                         <button
                             type="submit"
-                            class="btn btn-navy">
+                            class="btn btn-navy"
+                        >
 
                             Masuk Sekarang
 
-                            <i class="bi bi-arrow-right ms-2"></i>
+                            <i
+                                class="bi bi-arrow-right ms-2"
+                            ></i>
 
                         </button>
 
@@ -899,13 +1030,17 @@
                 </form>
 
 
-                <!-- =====================================
-                     REGISTRASI
-                ====================================== -->
+                <!-- =========================================
+                     REGISTER
+                ========================================== -->
 
-                <div class="text-center mt-4">
+                <div
+                    class="text-center mt-4"
+                >
 
-                    <p class="small text-muted mb-0">
+                    <p
+                        class="small text-muted mb-0"
+                    >
 
                         Belum punya akun?
 
@@ -913,7 +1048,8 @@
                         <a
                             href="<?= site_url('register') ?>"
                             class="fw-bold text-decoration-none"
-                            style="color: #2563eb;">
+                            style="color: #2563eb;"
+                        >
 
                             Daftar Sekarang
 
@@ -926,16 +1062,18 @@
 
                 <!-- MOBILE FOOTER -->
 
-                <div class="text-center mt-4 d-lg-none">
+                <div
+                    class="text-center mt-4 d-lg-none"
+                >
 
                     <small class="text-muted">
 
-                        &copy; 2026 CANDI. All rights reserved.
+                        &copy; 2026 CANDI.
+                        All rights reserved.
 
                     </small>
 
                 </div>
-
 
             </div>
 
@@ -944,102 +1082,206 @@
     </div>
 
 
-    <!-- =====================================
+    <!-- =========================================
          BOOTSTRAP JS
-    ====================================== -->
+    ========================================== -->
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    >
     </script>
 
 
-    <!-- =====================================
-         TOGGLE PASSWORD
-    ====================================== -->
-
     <script>
 
-        function togglePassword() {
+        // =========================================
+        // TOGGLE PASSWORD
+        // =========================================
 
+        function togglePassword()
+        {
             const passwordInput =
-                document.getElementById('loginPassword');
+                document.getElementById(
+                    'loginPassword'
+                );
 
             const eyeIcon =
-                document.getElementById('eyeIcon');
+                document.getElementById(
+                    'eyeIcon'
+                );
 
 
-            if (passwordInput.type === 'password') {
+            if (
+                passwordInput.type === 'password'
+            ) {
 
                 passwordInput.type = 'text';
 
-                eyeIcon.classList.remove('bi-eye-slash');
+                eyeIcon.classList.remove(
+                    'bi-eye-slash'
+                );
 
-                eyeIcon.classList.add('bi-eye');
+                eyeIcon.classList.add(
+                    'bi-eye'
+                );
 
             } else {
 
-                passwordInput.type = 'password';
+                passwordInput.type =
+                    'password';
 
-                eyeIcon.classList.remove('bi-eye');
+                eyeIcon.classList.remove(
+                    'bi-eye'
+                );
 
-                eyeIcon.classList.add('bi-eye-slash');
-
+                eyeIcon.classList.add(
+                    'bi-eye-slash'
+                );
             }
-
         }
 
 
-        // =====================================
-        // MENUTUP POPUP
-        // =====================================
+        // =========================================
+        // INGAT SAYA
+        // =========================================
 
-        function tutupPopup(id) {
+        const loginForm =
+            document.getElementById(
+                'loginForm'
+            );
 
+        const usernameInput =
+            document.getElementById(
+                'username'
+            );
+
+        const rememberCheckbox =
+            document.getElementById(
+                'remember'
+            );
+
+
+        // Saat halaman login dibuka,
+        // cek apakah username pernah disimpan.
+
+        const savedUsername =
+            localStorage.getItem(
+                'candi_remember_username'
+            );
+
+
+        if (savedUsername) {
+
+            usernameInput.value =
+                savedUsername;
+
+            rememberCheckbox.checked =
+                true;
+        }
+
+
+        // Saat form login dikirim
+
+        loginForm.addEventListener(
+            'submit',
+            function ()
+            {
+
+                // Jika "Ingat saya" dicentang
+
+                if (
+                    rememberCheckbox.checked
+                ) {
+
+                    localStorage.setItem(
+                        'candi_remember_username',
+                        usernameInput.value.trim()
+                    );
+
+                }
+
+                // Jika tidak dicentang,
+                // hapus username yang sebelumnya disimpan.
+
+                else {
+
+                    localStorage.removeItem(
+                        'candi_remember_username'
+                    );
+                }
+
+            }
+        );
+
+
+        // =========================================
+        // POPUP
+        // =========================================
+
+        function tutupPopup(id)
+        {
             const popup =
                 document.getElementById(id);
 
 
             if (popup) {
 
-                popup.classList.add('popup-hide');
+                popup.classList.add(
+                    'popup-hide'
+                );
 
-                setTimeout(function () {
 
-                    popup.remove();
+                setTimeout(
+                    function ()
+                    {
 
-                }, 400);
+                        popup.remove();
 
+                    },
+                    400
+                );
             }
-
         }
 
 
-        // =====================================
+        // =========================================
         // POPUP OTOMATIS HILANG
-        // =====================================
+        // =========================================
 
-        setTimeout(function () {
+        setTimeout(
+            function ()
+            {
 
-            const success =
-                document.getElementById('popupSuccess');
-
-            const error =
-                document.getElementById('popupError');
-
-
-            if (success) {
-
-                tutupPopup('popupSuccess');
-
-            }
+                const success =
+                    document.getElementById(
+                        'popupSuccess'
+                    );
 
 
-            if (error) {
+                const error =
+                    document.getElementById(
+                        'popupError'
+                    );
 
-                tutupPopup('popupError');
 
-            }
+                if (success) {
 
-        }, 5000);
+                    tutupPopup(
+                        'popupSuccess'
+                    );
+                }
+
+
+                if (error) {
+
+                    tutupPopup(
+                        'popupError'
+                    );
+                }
+
+            },
+            5000
+        );
 
     </script>
 

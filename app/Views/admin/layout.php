@@ -13,22 +13,19 @@
     <!-- GOOGLE FONT -->
     <link
         href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
-        rel="stylesheet"
-    >
+        rel="stylesheet">
 
 
     <!-- BOOTSTRAP -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        rel="stylesheet"
-    >
+        rel="stylesheet">
 
 
     <!-- BOOTSTRAP ICONS -->
     <link
         href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
-        rel="stylesheet"
-    >
+        rel="stylesheet">
 
 
     <style>
@@ -58,6 +55,7 @@
         .sidebar {
             width: 250px;
             height: 100vh;
+
             position: fixed;
             top: 0;
             left: 0;
@@ -70,6 +68,7 @@
             );
 
             color: #ffffff;
+
             z-index: 1000;
 
             display: flex;
@@ -87,6 +86,7 @@
         .sidebar-brand {
             width: 100%;
             height: 115px;
+
             padding: 8px 10px;
 
             display: flex;
@@ -117,12 +117,9 @@
 
         .sidebar-menu {
             list-style: none;
+
             padding: 1.25rem 0.85rem;
             margin: 0;
-
-            display: flex;
-            flex-direction: column;
-            flex: 1;
         }
 
 
@@ -188,32 +185,42 @@
            MENU KELUAR
         ========================================= */
 
-        .sidebar-menu .logout-item {
-            margin-top: auto;
-        }
-
-
-        .sidebar-menu .logout-item .nav-link {
+        .sidebar .nav-link[href*="logout"] {
             color: #ff6b6b !important;
         }
 
 
-        .sidebar-menu .logout-item .nav-link i {
+        .sidebar .nav-link[href*="logout"] i {
             color: #ff6b6b !important;
         }
 
 
-        /* Hover menu keluar */
-
-        .sidebar-menu .logout-item .nav-link:hover {
+        .sidebar .nav-link[href*="logout"]:hover {
             background: #dc3545 !important;
 
             color: #ffffff !important;
         }
 
 
-        .sidebar-menu .logout-item .nav-link:hover i {
+        .sidebar .nav-link[href*="logout"]:hover i {
             color: #ffffff !important;
+        }
+
+
+        /* =========================================
+           POSISI KELUAR DI BAGIAN BAWAH
+        ========================================= */
+
+        .sidebar-menu {
+            height: calc(100vh - 115px);
+
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .sidebar-menu .logout-item {
+            margin-top: auto;
         }
 
 
@@ -513,15 +520,24 @@
         <div class="sidebar-brand">
 
             <img
-                src="/assets/CANDI.png"
+                src="<?= base_url('assets/CANDI.png') ?>"
                 alt="CANDI"
-                class="logo-candi"
-            >
+                class="logo-candi">
 
         </div>
 
 
-        <!-- MENU -->
+        <!-- =====================================
+             MENU SIDEBAR
+             
+             HANYA:
+             1. Dashboard
+             2. Agenda Kegiatan
+             3. Laporan
+             4. Keluar
+             
+             Pengaturan / Reset Akun DIHAPUS
+        ====================================== -->
 
         <ul class="sidebar-menu">
 
@@ -531,7 +547,7 @@
             <li>
 
                 <a
-                    href="<?= site_url('admin') ?>"
+                    href="<?= base_url('admin') ?>"
                     class="nav-link <?= uri_string() == 'admin' ? 'active' : '' ?>"
                 >
 
@@ -546,12 +562,12 @@
             </li>
 
 
-            <!-- AGENDA -->
+            <!-- AGENDA KEGIATAN -->
 
             <li>
 
                 <a
-                    href="<?= site_url('admin/agenda') ?>"
+                    href="<?= base_url('admin/agenda') ?>"
                     class="nav-link <?= strpos(uri_string(), 'admin/agenda') === 0 ? 'active' : '' ?>"
                 >
 
@@ -571,7 +587,7 @@
             <li>
 
                 <a
-                    href="<?= site_url('admin/laporan') ?>"
+                    href="<?= base_url('admin/laporan') ?>"
                     class="nav-link <?= strpos(uri_string(), 'admin/laporan') === 0 ? 'active' : '' ?>"
                 >
 
@@ -586,12 +602,15 @@
             </li>
 
 
-            <!-- KELUAR -->
+            <!-- =================================
+                 KELUAR
+                 Tetap di paling bawah
+            ================================== -->
 
             <li class="logout-item">
 
                 <a
-                    href="<?= site_url('logout') ?>"
+                    href="<?= base_url('logout') ?>"
                     class="nav-link"
                 >
 
@@ -631,7 +650,9 @@
             </h1>
 
 
-            <!-- PROFILE USER YANG LOGIN -->
+            <!-- =================================
+                 PROFILE USER YANG LOGIN
+            ================================== -->
 
             <div class="admin-profile">
 
@@ -642,7 +663,7 @@
                     $roleUser = session()->get('role') ?? 'Admin';
 
 
-                    // Membuat inisial dari nama
+                    // Membuat inisial nama
 
                     $namaParts = preg_split(
                         '/\s+/',
@@ -728,7 +749,9 @@
 
 
 
-    <!-- BOOTSTRAP JS -->
+    <!-- =========================================
+         BOOTSTRAP JS
+    ========================================= -->
 
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
