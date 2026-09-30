@@ -3,6 +3,7 @@
 <?= $this->section('content') ?>
 
 <style>
+
     /* ==========================================
        ANIMASI
        ========================================== */
@@ -12,6 +13,7 @@
     }
 
     @keyframes pulse-animation {
+
         0% {
             opacity: 1;
         }
@@ -23,6 +25,7 @@
         100% {
             opacity: 1;
         }
+
     }
 
 
@@ -104,12 +107,34 @@
         top: 50%;
         transform: translateY(-50%);
         color: #64748b;
+        z-index: 2;
     }
 
     .search-input {
         padding-left: 38px;
     }
 
+
+    /* ==========================================
+       TOMBOL RESET
+       ========================================== */
+
+    .btn-reset-filter {
+    height: 42px;
+    border: 1px solid #5495de;
+    background: #98c5ff;
+    color: #2563eb;
+    border-radius: 9px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-reset-filter:hover {
+    background: #3b79ff;
+    border-color: #2563eb;
+    color: #ffffff;
+}
 
     /* ==========================================
        TABEL
@@ -201,7 +226,8 @@
         white-space: nowrap;
     }
 
-    /* EDIT - KUNING */
+
+    /* EDIT */
 
     .btn-edit {
         background: #ffc107;
@@ -213,7 +239,8 @@
         color: #212529 !important;
     }
 
-    /* HAPUS - MERAH */
+
+    /* HAPUS */
 
     .btn-hapus {
         background: #dc3545;
@@ -225,7 +252,8 @@
         color: #ffffff !important;
     }
 
-    /* DETAIL - BIRU */
+
+    /* DETAIL */
 
     .btn-detail {
         background: #0d6efd;
@@ -347,6 +375,7 @@
         }
 
     }
+
 </style>
 
 
@@ -357,6 +386,7 @@
 <div class="agenda-header">
 
     <div>
+
         <h3 class="agenda-title">
             Agenda Kegiatan
         </h3>
@@ -364,7 +394,9 @@
         <p class="agenda-subtitle">
             Kelola agenda kegiatan Dinas Pendidikan Kota Kediri
         </p>
+
     </div>
+
 
     <button
         type="button"
@@ -438,7 +470,7 @@
 
             <!-- FILTER BULAN -->
 
-            <div class="col-md-4">
+            <div class="col-md-3">
 
                 <label class="filter-label">
                     Filter Bulan
@@ -472,7 +504,7 @@
 
             <!-- FILTER STATUS -->
 
-            <div class="col-md-4">
+            <div class="col-md-3">
 
                 <label class="filter-label">
                     Status Kegiatan
@@ -505,7 +537,7 @@
 
             <!-- PENCARIAN -->
 
-            <div class="col-md-4">
+            <div class="col-md-3">
 
                 <label class="filter-label">
                     Cari Agenda
@@ -519,9 +551,28 @@
                         type="text"
                         id="searchAgenda"
                         class="form-control filter-control search-input"
-                        placeholder="Cari nama kegiatan, tempat...">
+                        placeholder="Cari nama kegiatan, tempat..."
+                    >
 
                 </div>
+
+            </div>
+
+
+            <!-- RESET -->
+
+            <div class="col-md-3 d-flex align-items-end">
+
+                <button
+                    type="button"
+                    id="btnResetFilter"
+                    class="btn btn-reset-filter w-100">
+
+                    <i class="bi bi-arrow-counterclockwise me-1"></i>
+
+                    Reset
+
+                </button>
 
             </div>
 
@@ -651,6 +702,7 @@
 
                                 }
 
+
                                 /*
                                  * LEBIH DARI 3 JAM
                                  */
@@ -747,6 +799,7 @@
                                                 (24 * 60 * 60)
                                             );
 
+
                                         if ($hari == 1) {
 
                                             $status_text =
@@ -785,10 +838,13 @@
                                 ) ?>"
                             >
 
+
                                 <!-- NOMOR -->
 
                                 <td class="ps-4 fw-semibold">
+
                                     <?= $no++ ?>
+
                                 </td>
 
 
@@ -811,11 +867,14 @@
                                     <?php if (!empty($item['tanggal_selesai'])) : ?>
 
                                         <small>
+
                                             s/d
+
                                             <?= date(
                                                 'd-m-Y',
                                                 strtotime($item['tanggal_selesai'])
                                             ) ?>
+
                                         </small>
 
                                     <?php endif; ?>
@@ -905,6 +964,7 @@
 
                                 <td class="text-end pe-4">
 
+
                                     <!-- EDIT -->
 
                                     <a
@@ -960,13 +1020,17 @@
 
                         <!-- TIDAK ADA HASIL FILTER -->
 
-                        <tr id="noResult" class="no-result">
+                        <tr
+                            id="noResult"
+                            class="no-result">
 
                             <td
                                 colspan="7"
                                 class="text-center py-5 text-muted">
 
-                                <i class="bi bi-search fs-2 d-block mb-2"></i>
+                                <i
+                                    class="bi bi-search fs-2 d-block mb-2">
+                                </i>
 
                                 Data agenda tidak ditemukan.
 
@@ -983,7 +1047,9 @@
                                 colspan="7"
                                 class="text-center text-muted py-5">
 
-                                <i class="bi bi-inbox fs-2 d-block mb-2"></i>
+                                <i
+                                    class="bi bi-inbox fs-2 d-block mb-2">
+                                </i>
 
                                 Belum ada data agenda kegiatan.
 
@@ -1061,7 +1127,10 @@
 
             <span
                 class="legend-circle"
-                style="background: #ffffff; border: 1px solid #999;">
+                style="
+                    background: #ffffff;
+                    border: 1px solid #999;
+                ">
             </span>
 
             Selesai
@@ -1282,14 +1351,19 @@
 
                     </div>
 
-                    <!-- DOKUMENTASI KEGIATAN -->
+
+                    <!-- DOKUMENTASI -->
 
                     <div class="mb-2">
 
                         <label class="modal-label">
+
                             <i class="bi bi-camera me-1 text-primary"></i>
+
                             Dokumentasi Kegiatan
+
                         </label>
+
 
                         <input
                             type="file"
@@ -1299,10 +1373,15 @@
                             accept="image/jpeg,image/png,image/webp"
                             multiple>
 
+
                         <small class="text-muted d-block mt-2">
+
                             Pilih beberapa foto sekaligus.
-                            Format JPG, PNG, atau WEBP, Maksimal 5 foto.
+                            Format JPG, PNG, atau WEBP,
+                            Maksimal 5 foto.
+
                         </small>
+
 
                         <div
                             id="previewDokumentasi"
@@ -1316,7 +1395,8 @@
 
                 <!-- FOOTER -->
 
-                <div class="modal-footer border-0 pt-0 pb-4 px-4">
+                <div
+                    class="modal-footer border-0 pt-0 pb-4 px-4">
 
                     <button
                         type="button"
@@ -1350,203 +1430,448 @@
 
 
 <!-- ==========================================
-     FILTER & PENCARIAN OTOMATIS
+     FILTER & PENCARIAN
      ========================================== -->
 
 <script>
 
-document.addEventListener('DOMContentLoaded', function () {
-
-    const filterBulan =
-        document.getElementById('filterBulan');
-
-    const filterStatus =
-        document.getElementById('filterStatus');
-
-    const searchAgenda =
-        document.getElementById('searchAgenda');
-
-    const rows =
-        document.querySelectorAll('.agenda-row');
-
-    const noResult =
-        document.getElementById('noResult');
+document.addEventListener(
+    'DOMContentLoaded',
+    function () {
 
 
-    function filterAgenda() {
-
-        const bulan =
-            filterBulan.value;
-
-        const status =
-            filterStatus.value;
-
-        const keyword =
-            searchAgenda.value
-                .toLowerCase()
-                .trim();
+        const filterBulan =
+            document.getElementById(
+                'filterBulan'
+            );
 
 
-        let jumlahTampil = 0;
+        const filterStatus =
+            document.getElementById(
+                'filterStatus'
+            );
 
 
-        rows.forEach(function (row) {
-
-            const rowBulan =
-                row.dataset.bulan;
-
-            const rowStatus =
-                row.dataset.status;
-
-            const rowSearch =
-                row.dataset.search;
+        const searchAgenda =
+            document.getElementById(
+                'searchAgenda'
+            );
 
 
-            const cocokBulan =
-                bulan === 'semua' ||
-                rowBulan === bulan;
+        const btnResetFilter =
+            document.getElementById(
+                'btnResetFilter'
+            );
 
 
-            const cocokStatus =
-                status === 'semua' ||
-                rowStatus === status;
+        const rows =
+            document.querySelectorAll(
+                '.agenda-row'
+            );
 
 
-            const cocokSearch =
-                keyword === '' ||
-                rowSearch.includes(keyword);
+        const noResult =
+            document.getElementById(
+                'noResult'
+            );
 
 
-            if (
-                cocokBulan &&
-                cocokStatus &&
-                cocokSearch
-            ) {
+        /*
+         * ==========================================
+         * FUNGSI FILTER AGENDA
+         * ==========================================
+         */
 
-                row.style.display = '';
+        function filterAgenda()
+        {
 
-                jumlahTampil++;
-
-            } else {
-
-                row.style.display = 'none';
-
-            }
-
-        });
+            const bulan =
+                filterBulan.value;
 
 
-        if (noResult) {
+            const status =
+                filterStatus.value;
 
-            if (jumlahTampil === 0) {
 
-                noResult.style.display =
-                    'table-row';
+            const keyword =
+                searchAgenda.value
+                    .toLowerCase()
+                    .trim();
 
-            } else {
 
-                noResult.style.display =
-                    'none';
+            let jumlahTampil = 0;
+
+
+            rows.forEach(
+                function (row)
+                {
+
+                    const rowBulan =
+                        row.dataset.bulan;
+
+
+                    const rowStatus =
+                        row.dataset.status;
+
+
+                    const rowSearch =
+                        row.dataset.search;
+
+
+                    /*
+                     * COCOK BULAN
+                     */
+
+                    const cocokBulan =
+                        bulan === 'semua' ||
+                        rowBulan === bulan;
+
+
+                    /*
+                     * COCOK STATUS
+                     */
+
+                    const cocokStatus =
+                        status === 'semua' ||
+                        rowStatus === status;
+
+
+                    /*
+                     * COCOK PENCARIAN
+                     */
+
+                    const cocokSearch =
+                        keyword === '' ||
+                        rowSearch.includes(
+                            keyword
+                        );
+
+
+                    /*
+                     * TAMPILKAN DATA
+                     */
+
+                    if (
+                        cocokBulan &&
+                        cocokStatus &&
+                        cocokSearch
+                    ) {
+
+                        row.style.display =
+                            '';
+
+                        jumlahTampil++;
+
+                    }
+
+                    /*
+                     * SEMBUNYIKAN DATA
+                     */
+
+                    else {
+
+                        row.style.display =
+                            'none';
+
+                    }
+
+                }
+            );
+
+
+            /*
+             * PESAN DATA TIDAK DITEMUKAN
+             */
+
+            if (noResult) {
+
+                if (jumlahTampil === 0) {
+
+                    noResult.style.display =
+                        'table-row';
+
+                }
+
+                else {
+
+                    noResult.style.display =
+                        'none';
+
+                }
 
             }
 
         }
 
+
+        /*
+         * ==========================================
+         * FILTER BULAN
+         * ==========================================
+         */
+
+        filterBulan.addEventListener(
+            'change',
+            filterAgenda
+        );
+
+
+        /*
+         * ==========================================
+         * FILTER STATUS
+         * ==========================================
+         */
+
+        filterStatus.addEventListener(
+            'change',
+            filterAgenda
+        );
+
+
+        /*
+         * ==========================================
+         * PENCARIAN
+         * ==========================================
+         */
+
+        searchAgenda.addEventListener(
+            'input',
+            filterAgenda
+        );
+
+
+        /*
+         * ==========================================
+         * TOMBOL RESET
+         * ==========================================
+         */
+
+        btnResetFilter.addEventListener(
+            'click',
+            function ()
+            {
+
+                /*
+                 * Kembalikan bulan
+                 */
+
+                filterBulan.value =
+                    'semua';
+
+
+                /*
+                 * Kembalikan status
+                 */
+
+                filterStatus.value =
+                    'semua';
+
+
+                /*
+                 * Kosongkan pencarian
+                 */
+
+                searchAgenda.value =
+                    '';
+
+
+                /*
+                 * Tampilkan kembali
+                 * seluruh agenda
+                 */
+
+                filterAgenda();
+
+            }
+        );
+
+
+        /*
+         * Jalankan filter pertama kali
+         */
+
+        filterAgenda();
+
     }
-
-
-    /*
-     * FILTER LANGSUNG SAAT DIPILIH
-     */
-
-    filterBulan.addEventListener(
-        'change',
-        filterAgenda
-    );
-
-
-    filterStatus.addEventListener(
-        'change',
-        filterAgenda
-    );
-
-
-    /*
-     * PENCARIAN LANGSUNG SAAT MENGETIK
-     */
-
-    searchAgenda.addEventListener(
-        'input',
-        filterAgenda
-    );
-
-
-});
+);
 
 </script>
 
+
+<!-- ==========================================
+     PREVIEW DOKUMENTASI
+     ========================================== -->
+
 <script>
-document.addEventListener('DOMContentLoaded', function () {
 
-    const input = document.getElementById('dokumentasi');
-    const preview = document.getElementById('previewDokumentasi');
+document.addEventListener(
+    'DOMContentLoaded',
+    function ()
+    {
 
-    if (!input || !preview) {
-        return;
-    }
+        const input =
+            document.getElementById(
+                'dokumentasi'
+            );
 
-    input.addEventListener('change', function () {
 
-        preview.innerHTML = '';
+        const preview =
+            document.getElementById(
+                'previewDokumentasi'
+            );
 
-        const files = Array.from(this.files);
 
-        if (files.length > 5) {
-            alert('Maksimal 5 foto dokumentasi.');
-            this.value = '';
+        if (
+            !input ||
+            !preview
+        ) {
+
             return;
+
         }
 
-        files.forEach(function (file) {
 
-            if (!file.type.startsWith('image/')) {
-                alert('File ' + file.name + ' bukan file gambar.');
-                return;
+        input.addEventListener(
+            'change',
+            function ()
+            {
+
+                preview.innerHTML =
+                    '';
+
+
+                const files =
+                    Array.from(
+                        this.files
+                    );
+
+
+                /*
+                 * MAKSIMAL 5 FOTO
+                 */
+
+                if (
+                    files.length > 5
+                ) {
+
+                    alert(
+                        'Maksimal 5 foto dokumentasi.'
+                    );
+
+
+                    this.value =
+                        '';
+
+
+                    return;
+
+                }
+
+
+                files.forEach(
+                    function (file)
+                    {
+
+                        /*
+                         * CEK GAMBAR
+                         */
+
+                        if (
+                            !file.type.startsWith(
+                                'image/'
+                            )
+                        ) {
+
+                            alert(
+                                'File ' +
+                                file.name +
+                                ' bukan file gambar.'
+                            );
+
+                            return;
+
+                        }
+
+
+                        /*
+                         * PREVIEW
+                         */
+
+                        const reader =
+                            new FileReader();
+
+
+                        reader.onload =
+                            function (e)
+                            {
+
+                                const wrapper =
+                                    document.createElement(
+                                        'div'
+                                    );
+
+
+                                wrapper.style.width =
+                                    '110px';
+
+                                wrapper.style.height =
+                                    '85px';
+
+                                wrapper.style.borderRadius =
+                                    '10px';
+
+                                wrapper.style.overflow =
+                                    'hidden';
+
+                                wrapper.style.border =
+                                    '1px solid #dbe3ee';
+
+
+                                const img =
+                                    document.createElement(
+                                        'img'
+                                    );
+
+
+                                img.src =
+                                    e.target.result;
+
+
+                                img.style.width =
+                                    '100%';
+
+                                img.style.height =
+                                    '100%';
+
+                                img.style.objectFit =
+                                    'cover';
+
+
+                                wrapper.appendChild(
+                                    img
+                                );
+
+
+                                preview.appendChild(
+                                    wrapper
+                                );
+
+                            };
+
+
+                        reader.readAsDataURL(
+                            file
+                        );
+
+                    }
+                );
+
             }
+        );
 
-            if (file.size > 5 * 1024 * 1024) {
-                alert('File ' + file.name + ' lebih dari 5 MB.');
-                return;
-            }
+    }
+);
 
-            const reader = new FileReader();
-
-            reader.onload = function (e) {
-
-                const wrapper = document.createElement('div');
-
-                wrapper.style.width = '110px';
-                wrapper.style.height = '85px';
-                wrapper.style.borderRadius = '10px';
-                wrapper.style.overflow = 'hidden';
-                wrapper.style.border = '1px solid #dbe3ee';
-
-                const img = document.createElement('img');
-
-                img.src = e.target.result;
-                img.style.width = '100%';
-                img.style.height = '100%';
-                img.style.objectFit = 'cover';
-
-                wrapper.appendChild(img);
-                preview.appendChild(wrapper);
-            };
-
-            reader.readAsDataURL(file);
-        });
-    });
-
-});
 </script>
 
 
