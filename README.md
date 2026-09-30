@@ -28,6 +28,14 @@ to your `app` folder. The affected files can be copied or merged from
 Copy `env` to `.env` and tailor for your app, specifically the baseURL
 and any database settings.
 
+### Password reset
+
+Password reset links are sent to the email address saved on each account. Configure
+the `email.*` SMTP settings in `.env` before using the reset form. Existing accounts
+have no email address by default; an administrator must set each account's `email`
+field before that account can request a reset link. New registrations require an
+email address.
+
 ## Important Change with index.php
 
 `index.php` is no longer in the root of the project! It has been moved inside the *public* folder,

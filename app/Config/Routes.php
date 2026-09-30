@@ -6,6 +6,10 @@ use CodeIgniter\Router\RouteCollection;
 
 $routes->get('/login', 'Auth::login');
 $routes->post('/login/masuk', 'Auth::masuk');
+$routes->get('/password/forgot', 'Auth::forgotPassword');
+$routes->post('/password/forgot', 'Auth::sendPasswordReset');
+$routes->get('/password/reset/(:segment)', 'Auth::showPasswordReset/$1');
+$routes->post('/password/reset', 'Auth::updatePassword');
 
 $routes->get('/register', 'Auth::register');
 $routes->post('/register/simpan', 'Auth::simpanRegister');

@@ -869,6 +869,12 @@
 
                         </div>
 
+                        <a
+                            href="<?= site_url('password/forgot') ?>"
+                            class="small text-decoration-none"
+                            style="color: #2563eb;">
+                            Lupa password?
+                        </a>
 
                     </div>
 
@@ -905,7 +911,7 @@
 
 
                         <a
-                            href="/register"
+                            href="<?= site_url('register') ?>"
                             class="fw-bold text-decoration-none"
                             style="color: #2563eb;">
 

@@ -39,3 +39,13 @@ app.indexPage = ''
 #--------------------------------------------------------------------
 
 logger.threshold = 4
+
+# Password reset email. Configure these values with your SMTP provider.
+# email.protocol = smtp
+# email.SMTPHost = smtp.example.com
+# email.SMTPUser = your-account@example.com
+# email.SMTPPass = your-app-password
+# email.SMTPPort = 587
+# email.SMTPCrypto = tls
+# email.fromEmail = your-account@example.com
+# email.fromName = CANDI
